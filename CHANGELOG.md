@@ -21,3 +21,5 @@
 1.1.1: Fixed documentation, calculation parameters bug fix.
 
 1.1.2: Explicit method, fajrAngle, ishaAngle for CalculationParameters; coordinates, date, params for PrayerTimes.
+
+1.2.0: Calculation method changes (full credit to MoathCodes), typing fixes
