@@ -12,6 +12,7 @@
 enum Prayer {
   fajr,
   sunrise,
+  noon,
   dhuhr,
   asr,
   maghrib,
