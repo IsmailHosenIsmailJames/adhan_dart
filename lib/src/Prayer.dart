@@ -15,6 +15,7 @@ enum Prayer {
   noon,
   dhuhr,
   asr,
+  sunset,
   maghrib,
   isha,
   ishaBefore,

@@ -320,6 +320,8 @@ class PrayerTimes {
         return ishaBefore;
       case Prayer.fajrAfter:
         return fajrAfter;
+      case Prayer.sunset:
+        return maghrib;
     }
   }
 }
