@@ -307,11 +307,13 @@ class PrayerTimes {
       case Prayer.sunrise:
         return sunrise;
       case Prayer.noon:
-        return dhuhr;
+        return dhuhr.subtract(Duration(minutes: 8));
       case Prayer.dhuhr:
         return dhuhr;
       case Prayer.asr:
         return asr;
+      case Prayer.sunset:
+        return maghrib.subtract(Duration(minutes: 15));
       case Prayer.maghrib:
         return maghrib;
       case Prayer.isha:
@@ -320,8 +322,6 @@ class PrayerTimes {
         return ishaBefore;
       case Prayer.fajrAfter:
         return fajrAfter;
-      case Prayer.sunset:
-        return maghrib;
     }
   }
 }
