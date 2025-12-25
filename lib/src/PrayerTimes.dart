@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:adhan_dart/src/Astronomical.dart';
 import 'package:adhan_dart/src/DateUtils.dart';
@@ -269,7 +271,7 @@ class PrayerTimes {
 
     noon = dhuhr.subtract(Duration(minutes: 8));
     Duration nightTime = fajr.difference(maghrib);
-    tahajjud = fajr.subtract(
+    tahajjud = fajr.add(Duration(days: 1)).subtract(
         Duration(milliseconds: (nightTime.inMilliseconds / 6).toInt()));
   }
 
@@ -296,6 +298,8 @@ class PrayerTimes {
       return Prayer.asr;
     } else if (date.isAfter(sunset) && date.isBefore(maghrib)) {
       return Prayer.sunset;
+    } else if (date.isAfter(maghrib) && date.isBefore(isha)) {
+      return Prayer.maghrib;
     } else {
       return null;
     }
@@ -330,6 +334,7 @@ class PrayerTimes {
 
   Duration? timeUntilNextPrayer({required DateTime now}) {
     Prayer? prayer = currentPrayer(date: now);
+    log(prayer.toString(), name: "Prayer");
     if (prayer == null) {
       return null;
     }
@@ -389,10 +394,6 @@ class PrayerTimes {
         return isha;
       case Prayer.tahajjud:
         return tahajjud;
-      case Prayer.ishaBefore:
-        return ishaBefore;
-      case Prayer.fajrAfter:
-        return fajrAfter;
     }
   }
 }

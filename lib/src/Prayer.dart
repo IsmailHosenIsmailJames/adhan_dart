@@ -18,6 +18,4 @@ enum Prayer {
   maghrib,
   isha,
   tahajjud,
-  ishaBefore,
-  fajrAfter,
 }
