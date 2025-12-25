@@ -7,17 +7,17 @@
 ///   - isha
 /// * three additional values
 ///   - sunrise
-///   - ishaBefore (isha prayer of the day before)
-///   - fajrAfter (fajr prayer of the next day)
 enum Prayer {
   fajr,
   sunrise,
+  dhuha,
   noon,
   dhuhr,
   asr,
   sunset,
   maghrib,
   isha,
+  tahajjud,
   ishaBefore,
   fajrAfter,
 }

@@ -20,17 +20,29 @@ class PrayerTimes {
   /// Sunrise time
   late DateTime sunrise;
 
+  /// Dhuha time
+  late DateTime dhuha;
+
+  /// Noon Time // forbidden time for prayer
+  late DateTime noon;
+
   /// Dhuhr prayer time
   late DateTime dhuhr;
 
   /// Asr prayer time
   late DateTime asr;
 
+  /// Sunset Start time // forbidden time for prayer
+  late DateTime sunset;
+
   /// Maghrib prayer time
   late DateTime maghrib;
 
   /// Isha prayer time
   late DateTime isha;
+
+  // Tahajjud time
+  late DateTime tahajjud;
 
   /// Previous day's Isha prayer time
   late DateTime ishaBefore;
@@ -236,12 +248,15 @@ class PrayerTimes {
         precision: precision);
     sunrise = roundedMinute(dateByAddingMinutes(sunriseTime, sunriseAdjustment),
         precision: precision);
+    dhuha =
+        roundedMinute(sunrise.add(Duration(minutes: 15)), precision: precision);
     dhuhr = roundedMinute(dateByAddingMinutes(dhuhrTime, dhuhrAdjustment),
         precision: precision);
     asr = roundedMinute(dateByAddingMinutes(asrTime, asrAdjustment),
         precision: precision);
     maghrib = roundedMinute(dateByAddingMinutes(maghribTime, maghribAdjustment),
         precision: precision);
+    sunset = maghrib.subtract(Duration(minutes: 15));
     isha = roundedMinute(dateByAddingMinutes(ishaTime, ishaAdjustment),
         precision: precision);
 
@@ -251,73 +266,129 @@ class PrayerTimes {
     ishaBefore = roundedMinute(
         dateByAddingMinutes(ishabeforeTime, ishaAdjustment),
         precision: precision);
+
+    noon = dhuhr.subtract(Duration(minutes: 8));
+    Duration nightTime = fajr.difference(maghrib);
+    tahajjud = fajr.subtract(
+        Duration(milliseconds: (nightTime.inMilliseconds / 6).toInt()));
   }
 
   /// Returns the current prayer for the given date.
   ///
   /// [date] - Date/time to check against prayer times
-  Prayer currentPrayer({required DateTime date}) {
-    // if (date == null) {
-    //   date = DateTime.now();
-    // }
-    if (date.isAfter(isha)) {
+  Prayer? currentPrayer({required DateTime date}) {
+    Prayer? prayer = isInsideForbiddenTime(date);
+    if (prayer != null) {
+      return prayer;
+    } else if (date.isAfter(isha) && date.isBefore(tahajjud)) {
       return Prayer.isha;
-    } else if (date.isAfter(maghrib)) {
-      return Prayer.maghrib;
-    } else if (date.isAfter(asr)) {
-      return Prayer.asr;
-    } else if (date.isAfter(dhuhr)) {
-      return Prayer.dhuhr;
-    } else if (date.isAfter(sunrise)) {
-      return Prayer.sunrise;
-    } else if (date.isAfter(fajr)) {
+    } else if (date.isAfter(tahajjud) && date.isBefore(fajr)) {
+      return Prayer.tahajjud;
+    } else if (date.isAfter(fajr) && date.isBefore(sunrise)) {
       return Prayer.fajr;
+    } else if (date.isAfter(sunrise) && date.isBefore(noon)) {
+      return Prayer.dhuha;
+    } else if (date.isAfter(noon) && date.isBefore(dhuhr)) {
+      return Prayer.noon;
+    } else if (date.isAfter(dhuhr) && date.isBefore(asr)) {
+      return Prayer.dhuhr;
+    } else if (date.isAfter(asr) && date.isBefore(sunset)) {
+      return Prayer.asr;
+    } else if (date.isAfter(sunset) && date.isBefore(maghrib)) {
+      return Prayer.sunset;
     } else {
-      return Prayer.ishaBefore;
+      return null;
     }
+  }
+
+  Prayer? isInsideForbiddenTime(DateTime date) {
+    // check if time in between forbidden time
+    // sunrise forbidden time
+    DateTime sunriseForbiddenStart = sunrise;
+    DateTime sunriseForbiddenEnd = sunrise.add(Duration(minutes: 15));
+    if (date.isAfter(sunriseForbiddenStart) &&
+        date.isBefore(sunriseForbiddenEnd)) {
+      return Prayer.sunrise;
+    }
+
+    // noon forbidden time
+    DateTime noonForbiddenStart = noon;
+    DateTime noonForbiddenEnd = dhuhr;
+    if (date.isAfter(noonForbiddenStart) && date.isBefore(noonForbiddenEnd)) {
+      return Prayer.noon;
+    }
+
+    // sunset forbidden time
+    DateTime sunsetForbiddenStart = sunset;
+    DateTime sunsetForbiddenEnd = maghrib;
+    if (date.isAfter(sunsetForbiddenStart) &&
+        date.isBefore(sunsetForbiddenEnd)) {
+      return Prayer.sunset;
+    }
+    return null;
+  }
+
+  Duration? timeUntilNextPrayer({required DateTime now}) {
+    Prayer? prayer = currentPrayer(date: now);
+    if (prayer == null) {
+      return null;
+    }
+    return timeForPrayer(
+            Prayer.values.elementAt((prayer.index + 1) % Prayer.values.length))
+        ?.difference(now);
+  }
+
+  double? percentageOfTimeLeftUntilNextPrayer({required DateTime now}) {
+    Prayer? prayer = currentPrayer(date: now);
+    if (prayer == null) {
+      return null;
+    }
+    DateTime? nextPrayer = timeForPrayer(
+        Prayer.values.elementAt((prayer.index + 1) % Prayer.values.length));
+
+    DateTime? currentPrayerTime = timeForPrayer(prayer);
+    if (currentPrayerTime == null || nextPrayer == null) {
+      return null;
+    }
+
+    Duration totalTimeInBetween = nextPrayer.difference(currentPrayerTime);
+    Duration timeLeft = nextPrayer.difference(now);
+    return timeLeft.inMilliseconds / totalTimeInBetween.inMilliseconds;
   }
 
   /// Returns the next upcoming prayer.
   ///
   /// [date] - Optional date/time to check against. Defaults to DateTime.now()
-  Prayer nextPrayer({DateTime? date}) {
+  Prayer? nextPrayer({DateTime? date}) {
     date ??= DateTime.now();
-    if (date.isAfter(isha)) {
-      return Prayer.fajrAfter;
-    } else if (date.isAfter(maghrib)) {
-      return Prayer.isha;
-    } else if (date.isAfter(asr)) {
-      return Prayer.maghrib;
-    } else if (date.isAfter(dhuhr)) {
-      return Prayer.asr;
-    } else if (date.isAfter(sunrise)) {
-      return Prayer.dhuhr;
-    } else if (date.isAfter(fajr)) {
-      return Prayer.sunrise;
-    } else {
-      return Prayer.fajr;
-    }
+    Prayer? current = currentPrayer(date: date);
+    if (current == null) return null;
+    return Prayer.values.elementAt((current.index + 1) % Prayer.values.length);
   }
 
   /// Returns the DateTime for the specified prayer.
-  DateTime timeForPrayer(Prayer prayer) {
+  DateTime? timeForPrayer(Prayer prayer) {
     switch (prayer) {
       case Prayer.fajr:
         return fajr;
       case Prayer.sunrise:
         return sunrise;
+      case Prayer.dhuha:
+        return dhuha;
       case Prayer.noon:
-        return dhuhr.subtract(Duration(minutes: 8));
+        return noon;
       case Prayer.dhuhr:
         return dhuhr;
       case Prayer.asr:
         return asr;
       case Prayer.sunset:
-        return maghrib.subtract(Duration(minutes: 15));
+        return sunset;
       case Prayer.maghrib:
         return maghrib;
       case Prayer.isha:
         return isha;
+      case Prayer.tahajjud:
+        return tahajjud;
       case Prayer.ishaBefore:
         return ishaBefore;
       case Prayer.fajrAfter:
