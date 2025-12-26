@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:adhan_dart/src/Astronomical.dart';
 import 'package:adhan_dart/src/DateUtils.dart';
@@ -334,7 +332,6 @@ class PrayerTimes {
 
   Duration? timeUntilNextPrayer({required DateTime now}) {
     Prayer? prayer = currentPrayer(date: now);
-    log(prayer.toString(), name: "Prayer");
     if (prayer == null) {
       return null;
     }

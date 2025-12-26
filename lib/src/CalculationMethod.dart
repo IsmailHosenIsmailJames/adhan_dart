@@ -2,64 +2,64 @@ import 'package:adhan_dart/adhan_dart.dart';
 
 /// Enum holding all the available methods
 enum CalculationMethodEnum {
-  dubai,
-  egyptian,
-  karachi,
-  kuwait,
-  moonsightingCommittee,
-  morocco,
   muslimWorldLeague,
   northAmerica,
-  other,
-  qatar,
-  singapore,
-  tehran,
-  turkiye,
+  egyptian,
+  karachi,
   ummAlQura,
+  moonsightingCommittee,
+  dubai,
+  turkiye,
+  qatar,
+  kuwait,
+  singapore,
+  indonesia,
+  malaysia,
+  tehran,
   shia,
   gulf,
   france,
   russia,
-  malaysia,
   tunisia,
   algeria,
-  indonesia,
+  morocco,
   portugal,
   jordan,
+  other,
 }
 
 /// Class holding the calculation parameters for each method
 class CalculationMethodParameters {
   static CalculationParameters fromEnum(CalculationMethodEnum method) {
     switch (method) {
-      case CalculationMethodEnum.dubai:
-        return CalculationMethodParameters.dubai();
-      case CalculationMethodEnum.egyptian:
-        return CalculationMethodParameters.egyptian();
-      case CalculationMethodEnum.karachi:
-        return CalculationMethodParameters.karachi();
-      case CalculationMethodEnum.kuwait:
-        return CalculationMethodParameters.kuwait();
-      case CalculationMethodEnum.moonsightingCommittee:
-        return CalculationMethodParameters.moonsightingCommittee();
-      case CalculationMethodEnum.morocco:
-        return CalculationMethodParameters.morocco();
       case CalculationMethodEnum.muslimWorldLeague:
         return CalculationMethodParameters.muslimWorldLeague();
       case CalculationMethodEnum.northAmerica:
         return CalculationMethodParameters.northAmerica();
-      case CalculationMethodEnum.other:
-        return CalculationMethodParameters.other();
-      case CalculationMethodEnum.qatar:
-        return CalculationMethodParameters.qatar();
-      case CalculationMethodEnum.singapore:
-        return CalculationMethodParameters.singapore();
-      case CalculationMethodEnum.tehran:
-        return CalculationMethodParameters.tehran();
-      case CalculationMethodEnum.turkiye:
-        return CalculationMethodParameters.turkiye();
+      case CalculationMethodEnum.egyptian:
+        return CalculationMethodParameters.egyptian();
+      case CalculationMethodEnum.karachi:
+        return CalculationMethodParameters.karachi();
       case CalculationMethodEnum.ummAlQura:
         return CalculationMethodParameters.ummAlQura();
+      case CalculationMethodEnum.moonsightingCommittee:
+        return CalculationMethodParameters.moonsightingCommittee();
+      case CalculationMethodEnum.dubai:
+        return CalculationMethodParameters.dubai();
+      case CalculationMethodEnum.turkiye:
+        return CalculationMethodParameters.turkiye();
+      case CalculationMethodEnum.qatar:
+        return CalculationMethodParameters.qatar();
+      case CalculationMethodEnum.kuwait:
+        return CalculationMethodParameters.kuwait();
+      case CalculationMethodEnum.singapore:
+        return CalculationMethodParameters.singapore();
+      case CalculationMethodEnum.indonesia:
+        return CalculationMethodParameters.indonesia();
+      case CalculationMethodEnum.malaysia:
+        return CalculationMethodParameters.malaysia();
+      case CalculationMethodEnum.tehran:
+        return CalculationMethodParameters.tehran();
       case CalculationMethodEnum.shia:
         return CalculationMethodParameters.shia();
       case CalculationMethodEnum.gulf:
@@ -68,18 +68,18 @@ class CalculationMethodParameters {
         return CalculationMethodParameters.france();
       case CalculationMethodEnum.russia:
         return CalculationMethodParameters.russia();
-      case CalculationMethodEnum.malaysia:
-        return CalculationMethodParameters.malaysia();
       case CalculationMethodEnum.tunisia:
         return CalculationMethodParameters.tunisia();
       case CalculationMethodEnum.algeria:
         return CalculationMethodParameters.algeria();
-      case CalculationMethodEnum.indonesia:
-        return CalculationMethodParameters.indonesia();
+      case CalculationMethodEnum.morocco:
+        return CalculationMethodParameters.morocco();
       case CalculationMethodEnum.portugal:
         return CalculationMethodParameters.portugal();
       case CalculationMethodEnum.jordan:
         return CalculationMethodParameters.jordan();
+      case CalculationMethodEnum.other:
+        return CalculationMethodParameters.other();
     }
   }
 
@@ -94,7 +94,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.dubai,
         fajrAngle: 18.2,
         ishaAngle: 18.2,
-        fullName: "Dubai (experimental)",
+        fullName: 'Dubai (experimental)',
         location: const Coordinates(25.0762677, 55.087404));
     params.methodAdjustments = {
       Prayer.sunrise: -3,
@@ -116,7 +116,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.egyptian,
         fajrAngle: 19.5,
         ishaAngle: 17.5,
-        fullName: "Egyptian General Authority of Survey",
+        fullName: 'Egyptian General Authority of Survey',
         location: const Coordinates(30.0444196, 31.2357116));
     params.methodAdjustments = {Prayer.dhuhr: 1};
     return params;
@@ -133,7 +133,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.karachi,
         fajrAngle: 18,
         ishaAngle: 18,
-        fullName: "University of Islamic Sciences, Karachi",
+        fullName: 'University of Islamic Sciences, Karachi',
         location: const Coordinates(24.8614622, 67.0099388));
     params.methodAdjustments = {Prayer.dhuhr: 1};
     return params;
@@ -149,7 +149,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.kuwait,
         fajrAngle: 18,
         ishaAngle: 17.5,
-        fullName: "Kuwait",
+        fullName: 'Kuwait',
         location: const Coordinates(29.375859, 47.9774052));
   }
 
@@ -164,7 +164,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.moonsightingCommittee,
         fajrAngle: 18,
         ishaAngle: 18,
-        fullName: "Moonsighting Committee Worldwide (Moonsighting.com)");
+        fullName: 'Moonsighting Committee Worldwide (Moonsighting.com)');
     params.methodAdjustments = {Prayer.dhuhr: 5, Prayer.maghrib: 3};
     return params;
   }
@@ -180,7 +180,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.morocco,
         fajrAngle: 19,
         ishaAngle: 17,
-        fullName: "Morocco",
+        fullName: 'Morocco',
         location: const Coordinates(33.9715904, -6.8498129));
     params.methodAdjustments = {
       Prayer.sunrise: -3,
@@ -201,7 +201,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.muslimWorldLeague,
         fajrAngle: 18,
         ishaAngle: 17,
-        fullName: "Muslim World League",
+        fullName: 'Muslim World League',
         location: const Coordinates(51.5194682, -0.1360365));
     params.methodAdjustments = {Prayer.dhuhr: 1};
     return params;
@@ -218,7 +218,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.northAmerica,
         fajrAngle: 15,
         ishaAngle: 15,
-        fullName: "Islamic Society of North America (ISNA)",
+        fullName: 'Islamic Society of North America (ISNA)',
         location: const Coordinates(39.70421229999999, -86.39943869999999));
     params.methodAdjustments = {Prayer.dhuhr: 1};
     return params;
@@ -234,7 +234,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.other,
         fajrAngle: 0,
         ishaAngle: 0,
-        fullName: "Other");
+        fullName: 'Other');
   }
 
   /// Qatar
@@ -248,7 +248,7 @@ class CalculationMethodParameters {
         fajrAngle: 18,
         ishaAngle: 0,
         ishaInterval: 90,
-        fullName: "Qatar",
+        fullName: 'Qatar',
         location: const Coordinates(25.2854473, 51.5310398));
   }
 
@@ -263,7 +263,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.singapore,
         fajrAngle: 20,
         ishaAngle: 18,
-        fullName: "Majlis Ugama Islam Singapura, Singapore",
+        fullName: 'Majlis Ugama Islam Singapura, Singapore',
         location: const Coordinates(1.352083, 103.819836));
     params.methodAdjustments = {Prayer.dhuhr: 1};
     return params;
@@ -283,7 +283,7 @@ class CalculationMethodParameters {
         ishaAngle: 14,
         ishaInterval: 0,
         maghribAngle: 4.5,
-        fullName: "Institute of Geophysics, University of Tehran",
+        fullName: 'Institute of Geophysics, University of Tehran',
         location: const Coordinates(35.6891975, 51.3889736));
     return params;
   }
@@ -299,7 +299,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.turkiye,
         fajrAngle: 18,
         ishaAngle: 17,
-        fullName: "Diyanet İşleri Başkanlığı, Turkey (experimental)",
+        fullName: 'Diyanet İşleri Başkanlığı, Turkey (experimental)',
         location: const Coordinates(39.9333635, 32.8597419));
     params.methodAdjustments = {
       Prayer.sunrise: -7,
@@ -323,7 +323,7 @@ class CalculationMethodParameters {
         fajrAngle: 18.5,
         ishaAngle: 0,
         ishaInterval: 90,
-        fullName: "Umm Al-Qura University, Makkah",
+        fullName: 'Umm Al-Qura University, Makkah',
         location: const Coordinates(21.3890824, 39.8579118));
   }
 
@@ -334,7 +334,7 @@ class CalculationMethodParameters {
         fajrAngle: 16,
         ishaAngle: 14,
         maghribAngle: 4,
-        fullName: "Shia Ithna-Ashari, Leva Institute, Qum",
+        fullName: 'Shia Ithna-Ashari, Leva Institute, Qum',
         location: const Coordinates(34.6415764, 50.8746035));
     // Midnight: JAFARI - need to see how to implement this if necessary
     return params;
@@ -347,7 +347,7 @@ class CalculationMethodParameters {
         fajrAngle: 19.5,
         ishaAngle: 0,
         ishaInterval: 90,
-        fullName: "Gulf Region",
+        fullName: 'Gulf Region',
         location: const Coordinates(24.1323638, 53.3199527));
   }
 
@@ -357,7 +357,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.france,
         fajrAngle: 12,
         ishaAngle: 12,
-        fullName: "Union Organization Islamic de France",
+        fullName: 'Union Organization Islamic de France',
         location: const Coordinates(48.856614, 2.3522219));
   }
 
@@ -367,7 +367,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.russia,
         fajrAngle: 16,
         ishaAngle: 15,
-        fullName: "Spiritual Administration of Muslims of Russia",
+        fullName: 'Spiritual Administration of Muslims of Russia',
         location: const Coordinates(54.73479099999999, 55.9578555));
   }
 
@@ -377,7 +377,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.malaysia,
         fajrAngle: 20,
         ishaAngle: 18,
-        fullName: "Jabatan Kemajuan Islam Malaysia (JAKIM)",
+        fullName: 'Jabatan Kemajuan Islam Malaysia (JAKIM)',
         location: const Coordinates(3.139003, 101.686855));
   }
 
@@ -387,7 +387,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.tunisia,
         fajrAngle: 18,
         ishaAngle: 18,
-        fullName: "Tunisia",
+        fullName: 'Tunisia',
         location: const Coordinates(36.8064948, 10.1815316));
   }
 
@@ -397,7 +397,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.algeria,
         fajrAngle: 18,
         ishaAngle: 17,
-        fullName: "Algeria",
+        fullName: 'Algeria',
         location: const Coordinates(36.753768, 3.0587561));
   }
 
@@ -407,7 +407,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.indonesia,
         fajrAngle: 20,
         ishaAngle: 18,
-        fullName: "Kementerian Agama Republik Indonesia",
+        fullName: 'Kementerian Agama Republik Indonesia',
         location: const Coordinates(-6.2087634, 106.845599));
   }
 
@@ -418,7 +418,7 @@ class CalculationMethodParameters {
         fajrAngle: 18,
         ishaAngle: 0,
         ishaInterval: 77,
-        fullName: "Comunidade Islamica de Lisboa",
+        fullName: 'Comunidade Islamica de Lisboa',
         location: const Coordinates(38.7222524, -9.1393366));
     params.methodAdjustments = {Prayer.maghrib: 3};
     return params;
@@ -430,7 +430,7 @@ class CalculationMethodParameters {
         method: CalculationMethodEnum.jordan,
         fajrAngle: 18,
         ishaAngle: 18,
-        fullName: "Ministry of Awqaf, Islamic Affairs and Holy Places, Jordan",
+        fullName: 'Ministry of Awqaf, Islamic Affairs and Holy Places, Jordan',
         location: const Coordinates(31.9461222, 35.923844));
     params.methodAdjustments = {Prayer.maghrib: 5};
     return params;
