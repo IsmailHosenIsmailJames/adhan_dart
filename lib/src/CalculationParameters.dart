@@ -1,7 +1,7 @@
 import 'package:adhan_dart/adhan_dart.dart';
 
 class CalculationParameters {
-  late CalculationMethod method;
+  late CalculationMethodEnum method;
   late double fajrAngle;
   late double ishaAngle;
   int? ishaInterval;
@@ -11,9 +11,11 @@ class CalculationParameters {
   HighLatitudeRule? highLatitudeRule;
   late Map<Prayer, int> adjustments;
   late Map<Prayer, int> methodAdjustments;
+  String? fullName;
+  Coordinates? location;
 
   CalculationParameters(
-      {required CalculationMethod method,
+      {required CalculationMethodEnum method,
       required double fajrAngle,
       required double ishaAngle,
       int? ishaInterval,
@@ -21,7 +23,9 @@ class CalculationParameters {
       HighLatitudeRule? highLatitudeRule,
       Madhab? madhab,
       Map<Prayer, int>? adjustments,
-      Map<Prayer, int>? methodAdjustments}) {
+      Map<Prayer, int>? methodAdjustments,
+      this.fullName,
+      this.location}) {
     this.method = method;
     this.fajrAngle = fajrAngle;
     this.ishaAngle = ishaAngle;
@@ -51,7 +55,7 @@ class CalculationParameters {
   }
 
   CalculationParameters copyWith({
-    CalculationMethod? method,
+    CalculationMethodEnum? method,
     double? fajrAngle,
     double? ishaAngle,
     int? ishaInterval,
@@ -60,11 +64,15 @@ class CalculationParameters {
     HighLatitudeRule? highLatitudeRule,
     Map<Prayer, int>? adjustments,
     Map<Prayer, int>? methodAdjustments,
+    String? fullName,
+    Coordinates? location,
   }) =>
       CalculationParameters(
         method: method ?? this.method,
         fajrAngle: fajrAngle ?? this.fajrAngle,
         ishaAngle: ishaAngle ?? this.ishaAngle,
+        fullName: fullName ?? this.fullName,
+        location: location ?? this.location,
 
         // maghribAngle: maghribAngle ?? this.maghribAngle,
         madhab: madhab ?? this.madhab,

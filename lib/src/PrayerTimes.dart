@@ -119,7 +119,7 @@ class PrayerTimes {
 
     // special case for moonsighting committee above latitude 55
     if (calculationParameters.method ==
-            CalculationMethod.moonsightingCommittee &&
+            CalculationMethodEnum.moonsightingCommittee &&
         coordinates.latitude >= 55) {
       nightFraction = night / 7;
       fajrTime = dateByAddingSeconds(sunriseTime, -nightFraction.round());
@@ -129,7 +129,7 @@ class PrayerTimes {
 
     DateTime safeFajr() {
       if (calculationParameters.method ==
-          CalculationMethod.moonsightingCommittee) {
+          CalculationMethodEnum.moonsightingCommittee) {
         return Astronomical.seasonAdjustedMorningTwilight(
             coordinates.latitude, dayOfYear(date), date.year, sunriseTime);
       } else {
@@ -175,7 +175,7 @@ class PrayerTimes {
           .utcDate(dateBefore.year, dateBefore.month, dateBefore.day);
       // special case for moonsighting committee above latitude 55
       if (calculationParameters.method ==
-              CalculationMethod.moonsightingCommittee &&
+              CalculationMethodEnum.moonsightingCommittee &&
           coordinates.latitude >= 55) {
         nightFraction = night / 7;
         ishaTime = dateByAddingSeconds(sunsetTime, nightFraction!.round());
@@ -185,7 +185,7 @@ class PrayerTimes {
 
       DateTime safeIsha() {
         if (calculationParameters.method ==
-            CalculationMethod.moonsightingCommittee) {
+            CalculationMethodEnum.moonsightingCommittee) {
           return Astronomical.seasonAdjustedEveningTwilight(
               coordinates.latitude, dayOfYear(date), date.year, sunsetTime);
         } else {
@@ -197,7 +197,7 @@ class PrayerTimes {
 
       DateTime safeIshaBefore() {
         if (calculationParameters.method ==
-            CalculationMethod.moonsightingCommittee) {
+            CalculationMethodEnum.moonsightingCommittee) {
           return Astronomical.seasonAdjustedEveningTwilight(
               coordinates.latitude, dayOfYear(date), date.year, sunsetTime);
         } else {
