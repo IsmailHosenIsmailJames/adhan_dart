@@ -298,7 +298,14 @@ class PrayerTimes {
       return Prayer.sunset;
     } else if (date.isAfter(maghrib) && date.isBefore(isha)) {
       return Prayer.maghrib;
-    } else {
+    } else if (date.isBefore(tahajjud)) {
+      return Prayer.isha;
+    } else if (date.isBefore(fajr)) {
+      return Prayer.tahajjud;
+    } else if (date.isBefore(sunrise)) {
+      return Prayer.fajr;
+    }
+    {
       return null;
     }
   }
@@ -335,9 +342,16 @@ class PrayerTimes {
     if (prayer == null) {
       return null;
     }
-    return timeForPrayer(
+    Duration? difference = timeForPrayer(
             Prayer.values.elementAt((prayer.index + 1) % Prayer.values.length))
         ?.difference(now);
+    if (difference == null) {
+      return null;
+    }
+    if (difference.inHours >= 24) {
+      difference = difference - Duration(hours: 24);
+    }
+    return difference;
   }
 
   double? percentageOfTimeLeftUntilNextPrayer({required DateTime now}) {
@@ -355,6 +369,9 @@ class PrayerTimes {
 
     Duration totalTimeInBetween = nextPrayer.difference(currentPrayerTime);
     Duration timeLeft = nextPrayer.difference(now);
+    if (timeLeft.inHours >= 24) {
+      timeLeft = timeLeft - Duration(hours: 24);
+    }
     return timeLeft.inMilliseconds / totalTimeInBetween.inMilliseconds;
   }
 
@@ -364,6 +381,7 @@ class PrayerTimes {
   Prayer? nextPrayer({DateTime? date}) {
     date ??= DateTime.now();
     Prayer? current = currentPrayer(date: date);
+
     if (current == null) return null;
     return Prayer.values.elementAt((current.index + 1) % Prayer.values.length);
   }
