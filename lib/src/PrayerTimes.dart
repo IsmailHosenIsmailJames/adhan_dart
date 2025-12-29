@@ -298,7 +298,7 @@ class PrayerTimes {
       return Prayer.sunset;
     } else if (date.isAfter(maghrib) && date.isBefore(isha)) {
       return Prayer.maghrib;
-    } else if (date.isBefore(tahajjud)) {
+    } else if (date.isBefore(tahajjud.subtract(const Duration(days: 1)))) {
       return Prayer.isha;
     } else if (date.isBefore(fajr)) {
       return Prayer.tahajjud;
