@@ -268,7 +268,7 @@ class PrayerTimes {
         precision: precision);
 
     noon = dhuhr.subtract(Duration(minutes: 8));
-    Duration nightTime = fajr.difference(maghrib);
+    Duration nightTime = fajr.add(Duration(days: 1)).difference(maghrib);
     tahajjud = fajr.add(Duration(days: 1)).subtract(
         Duration(milliseconds: (nightTime.inMilliseconds / 6).toInt()));
   }
